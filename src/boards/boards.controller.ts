@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { BoardsService } from "./boards.service";
 import { Board, BoardStatus } from "./board.model";
 import { CreateBoardDto } from "./dto/create-board.dto";
@@ -13,6 +13,7 @@ export class BoardsController {
 	}
 
 	@Post()
+	@UsePipes(ValidationPipe)
 	createBoard(
 		@Body() createBoardDto: CreateBoardDto
 	): Board {
@@ -32,7 +33,7 @@ export class BoardsController {
 	/*
 	데코레이터
 	@Param: URL 경로에서 파라미터 값을 추출
-	@Body: 
+	@Body: HTTP 요청의 body에서 데이터 추출
 	*/
 
 	@Patch('/:id/status')
